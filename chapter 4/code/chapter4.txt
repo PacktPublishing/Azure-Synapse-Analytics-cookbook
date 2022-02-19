@@ -1,0 +1,28 @@
+df = (spark.readStream.format("rate").option("rowsPerSecond", 10).load())
+from pyspark.sql.functions import lit
+dfIoTSignals=(df.withColumn('id', lit('1'))
+                .withColumn('room_id', lit('Room Admin'))
+                .withColumn('noted_date', df["timestamp"].cast(StringType()))
+                .withColumn('temp', lit('1'))
+                .withColumn('location', lit('Test'))                   
+                )
+streamQuery = dfIoTSignals\
+                    .writeStream\
+                    .format("cosmos.oltp")\
+                    .outputMode("append")\
+                    .option("spark.cosmos.connection.mode", "gateway") \
+                    .option("spark.synapse.linkedService", "cosmoscookbook")\
+                    .option("spark.cosmos.container", "cosmosIoTdb")\
+                    .option("checkpointLocation", "/writeCheckpointDir")\
+                    .start()
+
+streamQuery.awaitTermination()
+
+#Create View
+CREATE VIEW IOTTEMP
+AS  
+SELECT  *
+FROM OPENROWSET (
+    'CosmosDB', N'account=cosmoscookbooks;database=cosmosIoTdb;region=westus;key=k2G5cNMSgjanJfJNv0BCNyr9ydE0avGecR17WiCLJmSacs4gPiWtHklDJXKVAi7SEM9ZgjylHEPWEvoYFtL8Ew==',IoTTemp)
+AS q1
+select location, count(*) as count from IOTTEMP group by location
