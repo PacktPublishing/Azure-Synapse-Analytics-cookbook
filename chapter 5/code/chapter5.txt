@@ -1,0 +1,74 @@
+df = spark.read.parquet('abfss://amazonbestseller@synapsecookbookdemo.dfs.core.windows.net/NYCTripSmall.parquet')
+df.show(10)
+print('Converting to Pandas.')
+pd = df.toPandas()
+print(pd)
+
+#view schema of input dataset
+df = spark.read.parquet('abfss://amazonbestseller@synapsecookbookdemo.dfs.core.windows.net/NYCTripSmall.parquet')
+df.printSchema()
+
+#view records in dataframe
+df.show(5, truncate=false)
+
+#view selected columns of the dataframe
+df.select(‘PassengerCount’, ‘DateID’).show(10)
+
+#use groupby clause and sort the records in dataframe
+df.groupBy(“DateID”).count().sort(“count”, ascending=True).show()
+
+#view descriptive statistical results of the dataframe
+df.describe().show()
+
+#filter a column in dataframe
+df.filter(df.TripDistanceMiles > 1.5).count()
+
+#Add a column in dataframe
+from pyspark.sql.functions import *
+df=df.withColumn(“Longtrip”, col(“TripDistanceMiles”))
+df.show(5)
+
+#filter trip data between 1 and 3 miles
+df.filter(df[“Longtrip”].between(1,3)).show(5)
+
+#view in chart
+df=df.groupby(“DateID”).agg({‘TotalAmount’:”sum”})
+display(df)
+
+#performing read-write operations to a parquet file
+df = spark.read.parquet('abfss://amazonbestseller@synapsecookbookdemo.dfs.core.windows.net/NYCTripSmall.parquet') 
+from pyspark.sql.functions import *
+df = df.withColumn("Longtrip", col("TripDistanceMiles"))
+df.write.parquet('abfss://amazonbestseller@synapsecookbookdemo.dfs.core.windows.net/NYCTripSmallwrite.parquet')
+dfwrite = spark.read.parquet('abfss://amazonbestseller@synapsecookbookdemo.dfs.core.windows.net/NYCTripSmallwrite.parquet')
+dfwrite.show(5)
+
+#analytics in spark
+
+dftrip = spark.read.parquet('abfss://amazonbestseller@synapsecookbookdemo.dfs.core.windows.net/NYCTripSmall.parquet')
+#add new column
+
+from pyspark.sql import functions as F
+dftrip=dftrip.withColumn(“trip_date”, F.to_date(F.col(“DateID”).cast(“string”),\’yyyyMMdd’))
+dftrip.printSchema()
+
+#get day, month, year
+dftrip.select(col(“trip_date”),
+		dayofweek(col(“trip_date”)).alias(“dayofweek”),
+		dayofmonth(col(“trip_date”)).alias(“dayofmonth”),
+		dayofyear(col(“trip_date”)).alias(“dayofyear”),
+	    ).show()
+
+#find day of trip
+
+import pyspark.sql.functions as f
+dftrip=dftrip.withColumn(‘Day’, f.date_format(‘trip_date’, ‘E’))
+dftrip.show(5)
+
+#find total trips for all days
+dftrip.groupBy(“Day”).count().orderBy(“count”).show(7)
+
+#display chart
+dftrip=dftrip.agg({’Day’:”count”})
+display(dftrip)
+
