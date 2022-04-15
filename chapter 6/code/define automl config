@@ -1,0 +1,8 @@
+automl_config = AutoMLConfig(spark_context = sc,
+                             task = "regression",
+                             training_data = dataset,
+                             label_column_name = "fare_amount",
+                             primary_metric = "spearman_correlation",
+                             experiment_timeout_hours = 1,
+                             max_concurrent_iterations = 1,
+                             enable_onnx_compatible_models = True
