@@ -1,0 +1,10 @@
+from pyspark.sql import SparkSession
+from pyspark.sql.types import *
+
+
+adls_path ='abfss://%s@%s.dfs.core.windows.net/%s' % ("taxistagingdata", "synapseadlsac","")
+mydataframe = spark.read.option('header','true') \
+.option('delimiter', ',') \
+.csv(adls_path + '/yellow_tripdata_2020-06.csv')
+
+mydataframe.show()
