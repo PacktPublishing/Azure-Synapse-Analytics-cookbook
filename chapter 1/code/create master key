@@ -1,0 +1,7 @@
+CREATE MASTER KEY;
+--Credential used to authenticate to External Data Source 
+CREATE DATABASE SCOPED CREDENTIAL AzureStorageCredential
+WITH
+    IDENTITY = 'polybaseuser',
+    SECRET = '<Access Key>'
+;
