@@ -1,0 +1,2 @@
+run = experiment.submit(automl_config)
+displayHTML("<a href={} target='_blank'>Your experiment in Azure Machine Learning portal: {}</a>".format(run.get_portal_url(), run.id))
