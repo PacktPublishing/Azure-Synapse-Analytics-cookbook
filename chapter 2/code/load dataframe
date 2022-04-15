@@ -1,0 +1,8 @@
+import matplotlib.pyplot as plt
+mydataframeplot = mydataframe1.toPandas()
+ax = mydataframeplot['passenger_count'].plot(kind='hist', bins= 20, facecolor='orange')
+ax.set_title('Total Passenger distribution')
+ax.set_xlabel('No. of Passengers')
+ax.set_ylabel('Counts')
+chartplt.suptitle('Trend')
+chartplt.show()
