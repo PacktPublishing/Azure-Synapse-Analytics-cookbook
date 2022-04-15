@@ -1,0 +1,33 @@
+--Create a schema for the external tables
+CREATE SCHEMA [NYTaxiSTG];
+CREATE EXTERNAL TABLE [NYTaxiSTG].[Trip]
+(
+    [VendorID] varchar(10) NULL,
+    [tpep_pickup_datetime] datetime NOT NULL,
+    [tpep_dropoff_datetime] datetime NOT NULL,
+    [passenger_count] int  NULL,
+    [trip_distance] float  NULL,
+    [RateCodeID] int NULL,
+    [store_and_fwd_flag] varchar(3) NULL,
+    [PULocationID] int NULL,
+    [DOLocationID] int NULL,
+    [payment_type] int NULL,
+    [fare_amount] money NULL,
+    [extra] money NULL,
+    [mta_tax] money NULL,
+    [tip_amount] money NULL,
+    [tolls_amount] money NULL,
+    [improvement_surcharge] money NULL,
+    [total_amount] money NULL,
+    [congestion_surcharge] money NULL
+	
+)
+WITH
+(
+    LOCATION = '/',
+    DATA_SOURCE = NYTBlob,
+    FILE_FORMAT = csvstaging,
+	FORMAT_OPTIONS (FIELD_TERMINATOR = ','),
+    REJECT_TYPE = value,
+    REJECT_VALUE = 0
+);
