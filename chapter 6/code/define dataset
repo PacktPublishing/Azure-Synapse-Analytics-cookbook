@@ -1,0 +1,3 @@
+df = spark.sql("SELECT * FROM default.yellow_tripdataml")
+datastore = Datastore.get_default(ws)
+dataset = TabularDatasetFactory.register_spark_dataframe(df, datastore, name = experiment_name + "-dataset")
