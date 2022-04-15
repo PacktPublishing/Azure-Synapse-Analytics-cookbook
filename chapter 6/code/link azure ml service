@@ -1,0 +1,4 @@
+linkedService_name = "AzureMLService"
+experiment_name = "synapsewrkspac-mybookexperient"
+ws = mssparkutils.azureML.getWorkspace(linkedService_name)
+experiment = Experiment(ws, experiment_name)
