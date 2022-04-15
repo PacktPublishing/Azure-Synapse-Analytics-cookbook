@@ -1,0 +1,2 @@
+-- Connect to master
+CREATE LOGIN loader WITH PASSWORD = '<strong password>';
