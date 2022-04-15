@@ -1,0 +1,2 @@
+mydataframe1 = mydataframe.withColumn("passenger_count" ,mydataframe["passenger_count"].cast(IntegerType()))
+mydataframe1.groupBy("VendorID","payment_type").sum("passenger_count").show()
