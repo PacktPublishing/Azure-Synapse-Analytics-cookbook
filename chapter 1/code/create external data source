@@ -1,0 +1,18 @@
+CREATE EXTERNAL DATA SOURCE NYTBlob
+WITH
+(
+    TYPE = Hadoop,
+    LOCATION = 'wasbs://myblobcontainer @myaccount.blob.core.windows.net/',
+	CREDENTIAL = AzureStorageCredential
+);
+Create the external file format using below query
+CREATE EXTERNAL FILE FORMAT csvstaging
+WITH (
+    FORMAT_TYPE = DELIMITEDTEXT,
+    FORMAT_OPTIONS ( 
+	FIELD_TERMINATOR = ',',
+        STRING_DELIMITER = '',
+        USE_TYPE_DEFAULT = False,		
+		FIRST_ROW = 2
+    )
+);
