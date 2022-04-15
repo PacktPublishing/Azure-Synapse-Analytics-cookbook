@@ -1,0 +1,5 @@
+%%pyspark
+df = spark.read.load('abfss://taxistagingdata@synapseadlsac.dfs.core.windows.net/yellow_tripdata_2019-01.csv', format='csv'
+, header=True
+)
+df.write.mode("overwrite").saveAsTable("default.yellow_tripdata")
