@@ -2,7 +2,7 @@ CREATE EXTERNAL DATA SOURCE NYTBlob
 WITH
 (
     TYPE = Hadoop,
-    LOCATION = 'wasbs://myblobcontainer @myaccount.blob.core.windows.net/',
+    LOCATION = 'asbs://myblobcontainer @myaccount.blob.core.windows.net/',
 	CREDENTIAL = AzureStorageCredential
 );
 Create the external file format using below query
