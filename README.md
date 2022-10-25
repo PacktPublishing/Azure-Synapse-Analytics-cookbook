@@ -59,3 +59,7 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 **Gaurav Agarwal** is a cloud solution architect at Microsoft India Corp. Ltd, working closely with Microsoft clients on Azure data and AI, Azure ML, big data, IoT, and Power BI. He has extensive experience in architecting and transforming data solutions for the modern cloud, and expertise in building large-scale enterprise data warehouse solutions.
 
 **Meenakshi Muralidharan** leads modern data platforms and is a renowned chief architect for an Indian multinational information technology services and consulting company. She has extensive experience in building large scale data platforms and applications in Microsoft Azure.
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781803231501">https://packt.link/free-ebook/9781803231501 </a> </p>
